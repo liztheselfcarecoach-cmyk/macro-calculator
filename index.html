@@ -54,7 +54,16 @@ a.btn{display:inline-block;text-decoration:none}
  .wrap{padding-top:22px}.brand{margin-bottom:26px}
  .phase,.choice,.macro,.panel{padding:19px}
 }
-</style>
+
+    .cta-note{margin:14px auto 0;max-width:620px;font-size:14px;line-height:1.55;opacity:.72}
+    .quiet-disclaimer{max-width:760px;margin:54px auto 12px;text-align:left;font-size:13px;line-height:1.65;color:rgba(23,23,23,.66)}
+    .quiet-disclaimer .quiet-rule{height:1px;background:rgba(23,23,23,.14);margin-bottom:26px}
+    .quiet-disclaimer .quiet-label{font-size:11px;font-weight:800;letter-spacing:.16em;color:rgba(23,23,23,.5);margin-bottom:14px}
+    .quiet-disclaimer p{margin:0 0 12px}
+    .quiet-disclaimer strong{color:rgba(23,23,23,.76)}
+    .quiet-disclaimer .quiet-emphasis{font-weight:800;color:rgba(23,23,23,.78)}
+
+  </style>
 </head>
 <body>
 <main class="wrap">
@@ -64,7 +73,7 @@ a.btn{display:inline-block;text-decoration:none}
   <div class="eyebrow">Free Macro Calculator</div>
   <h1>Let's find your starting point.</h1>
   <p class="lead">In order to estimate your daily nutritional needs, we first need to understand <strong>what you're asking your body to do.</strong></p>
-  <p class="lead">I like to think about nutrition in phases. <strong>A phase simply means eating with a purpose.</strong> We focus on one goal at a time — and we do it well. That's how we create meaningful, sustainable changes to body composition, strength and performance over time.</p>
+  <p class="lead">To start moving the needle in the right direction, we need to stop guessing. <strong>A phase simply means eating with a purpose.</strong> We focus on one goal at a time — and we do it well. That's how we create meaningful, sustainable changes to body composition, strength and performance over time.</p>
 
   <div class="phase-grid">
     <article class="phase">
@@ -134,7 +143,7 @@ a.btn{display:inline-block;text-decoration:none}
 <section id="activity" class="screen">
  <div class="progress"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
  <div class="eyebrow">Activity</div><h2>What does your average week look like?</h2>
- <p><strong>Choose based on your whole week — not just your workouts.</strong></p>
+ <p><strong>Choose based on your whole week — not just your workouts. Think about your job, daily movement and steps as well as your training.</strong></p>
  <div class="choice-grid">
    <button class="choice" onclick="setActivity(1.2,this)"><strong>MOSTLY SEDENTARY</strong>Mostly seated day with little intentional exercise.</button>
    <button class="choice" onclick="setActivity(1.375,this)"><strong>LIGHTLY ACTIVE</strong>Mostly seated day + exercise around 1–3 days per week.</button>
@@ -154,7 +163,7 @@ a.btn{display:inline-block;text-decoration:none}
    <div class="macro"><b id="carbs">—</b>CARBOHYDRATES</div>
    <div class="macro"><b id="fat">—</b>FAT</div>
  </div>
- <div class="panel"><h3>Your estimated maintenance</h3><p><strong><span id="maintenance">—</span> calories/day</strong></p><p id="phaseExplanation"></p></div>
+ <div class="panel"><h3 id="maintenanceHeading">Your estimated maintenance</h3><p><strong><span id="maintenance">—</span> calories/day</strong></p><p id="phaseExplanation"></p></div>
  <div id="lowWarning" class="panel" style="display:none"><h3>A note before you go further</h3><p>This calculation has produced a very low calorie target. Rather than recommending further restriction from a generic online calculator, I'd suggest getting personalised guidance.</p></div>
  <div class="panel">
    <h3>What do these numbers actually mean?</h3>
@@ -176,11 +185,22 @@ a.btn{display:inline-block;text-decoration:none}
    <p><strong>I help women build a way of eating, moving and caring for themselves that works for their body, their goals and their actual life.</strong></p>
    <!-- Replace # with your final website/discovery-call links before launch -->
    <a class="btn" href="#">WORK WITH ME →</a>
-   <a class="btn" href="#">BOOK A FREE 20-MINUTE CALL</a>
+   <a class="btn" href="https://calendly.com/liztheselfcarecoach/letschatfree20mincall" target="_blank" rel="noopener noreferrer">Book a Free 20-Minute Call</a><p class="cta-note">No hard sell. Just a chat about where you are, where you'd like to go, and whether my coaching is the right fit for you.</p>
  </div>
  <button class="back" onclick="resetCalc()">← RECALCULATE</button>
  <p class="small">This calculator provides an estimate only. Individual energy needs can vary. It is not intended to diagnose, treat or replace individual medical or dietetic advice. If you have a medical condition, a history of disordered eating, are pregnant or breastfeeding, or have specific nutritional requirements, seek appropriate individual guidance.</p>
 </section>
+
+<div class="quiet-disclaimer">
+  <div class="quiet-rule"></div>
+  <div class="quiet-label">DISCLAIMER</div>
+  <p><strong>This calculator gives you a basic estimate of your starting calories and macros.</strong></p>
+  <p>It is not personalised coaching, and it cannot take into account everything that makes <em>you</em> you — your dieting history, hormones, stress, sleep, muscle mass, digestion, training intensity, daily movement or lifestyle.</p>
+  <p class="quiet-emphasis">These numbers are a starting point, not a prescription.</p>
+  <p>Your body may need more or less food than this calculator estimates. That’s why we pay attention to what happens next — your hunger, energy, recovery, training performance, weight trend and other biofeedback — and make adjustments over time.</p>
+  <p><strong>The goal isn’t to find your “forever macros.”</strong></p>
+  <p>The goal is to find a starting point you can actually stick to, learn from and adjust from there.</p>
+</div>
 </main>
 
 <script>
@@ -227,6 +247,7 @@ function calculate(){
  const proteinG=weight*1.8;
  const fatG=(target*0.30)/9;
  const carbsG=(target-(proteinG*4)-(fatG*9))/4;
+      if(maintenanceHeading) maintenanceHeading.textContent='Your estimated maintenance';
 
  document.getElementById('calories').textContent=Math.round(target).toLocaleString();
  document.getElementById('maintenance').textContent=Math.round(tdee).toLocaleString();
